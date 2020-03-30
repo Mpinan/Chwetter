@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Peeps from "./peeps";
+
 import {
   Collapse,
   Navbar,
@@ -10,7 +10,7 @@ import {
   NavLink
 } from "reactstrap";
 
-const NavBar = props => {
+const NavBar = () => {
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleNavbar = () => setCollapsed(!collapsed);
@@ -18,7 +18,7 @@ const NavBar = props => {
   return (
     <div>
       <Navbar color="faded" light>
-        <NavbarBrand href="/" className="mr-auto">
+        <NavbarBrand href="/peeps" className="mr-auto">
           Chwitters
         </NavbarBrand>
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />
@@ -33,7 +33,6 @@ const NavBar = props => {
           </Nav>
         </Collapse>
       </Navbar>
-      <Peeps />
     </div>
   );
 };

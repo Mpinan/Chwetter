@@ -26,16 +26,6 @@ class Peeps extends Component {
       .catch(err => console.log(err));
   }
 
-  listPeeps() {
-    this.state.peeps.map(peep => {
-      return (
-        <tr key={peep.id}>
-          <td>{peep.body}</td>
-        </tr>
-      );
-    });
-  }
-
   render() {
     return (
       <Table striped responsive hover>
@@ -44,7 +34,15 @@ class Peeps extends Component {
             <th>Peep</th>
           </tr>
         </thead>
-        <tbody>{this.listPeeps}</tbody>
+        <tbody>
+          {this.state.peeps.map(peep => {
+            return (
+              <tr key={peep.id}>
+                <td>{peep.body}</td>
+              </tr>
+            );
+          })}
+        </tbody>
       </Table>
     );
   }
