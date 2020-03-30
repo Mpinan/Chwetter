@@ -15,29 +15,46 @@ class SignUp extends Component {
 
   validate = () => {
     const errors = {};
-    if (!this.state.email) {
-      errors.email = "Email is required";
-    }
-    if (this.state.email !== this.state.confirm_email) {
-      errors.confirm_email = "Email is different";
-    }
+
     if (this.state.username.trim() === "") {
       errors.username = "Username is required";
     }
     if (this.state.password.trim() === "") {
       errors.password = "Password is required";
     }
-
     return Object.keys(errors).length === 0 ? null : errors;
   };
+
+  addUser(e) {
+    e.preventDefault();
+    fetch("https://chitter-backend-api-v2.herokuapp.com/users", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        user: {
+          handle: this.state.username,
+          password: this.state.password
+        }
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Success:", data);
+      })
+      .catch(error => {
+        console.error("Errorcito:", error);
+      })
+      .then(this.setRedirect());
+  }
 
   handleLogin = e => {
     e.preventDefault();
     const errors = this.validate();
     this.setState({ errors });
     if (errors) return;
-    this.newUserAdd(e);
-    // this.render();
+    this.addUser(e);
   };
 
   // Is used to store what the user is typing
@@ -53,7 +70,7 @@ class SignUp extends Component {
 
   renderRedirect() {
     if (this.state.redirect) {
-      return <Redirect to="/" />;
+      return <Redirect to="/peeps" />;
     }
   }
 
@@ -71,28 +88,7 @@ class SignUp extends Component {
             value={this.state.username === null ? "" : this.state.username}
           />
         </FormGroup>
-        <FormGroup>
-          <Label for="email">Email</Label>
-          <Input
-            type="text"
-            name="email"
-            id="email"
-            onChange={this.onChange}
-            value={this.state.email === null ? "" : this.state.email}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="confirm">Confirm Email</Label>
-          <Input
-            type="text"
-            name="confirm_email"
-            id="confirm_email"
-            onChange={this.onChange}
-            value={
-              this.state.confirm_email === null ? "" : this.state.confirm_email
-            }
-          />
-        </FormGroup>
+
         <FormGroup>
           <Label for="password">Password</Label>
           <Input
