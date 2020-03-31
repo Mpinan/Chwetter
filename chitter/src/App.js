@@ -5,6 +5,7 @@ import Login from "./components/login";
 import SignUp from "./components/signup";
 import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import Peeps from "./components/peeps";
+import Profile from "./components/profile";
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
           <Route exact path="/peeps" component={Peeps} />
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/profile" component={Profile} />
           {/* <Redirect from="/" exact to="/peeps" /> */}
         </BrowserRouter>
       </Container>
