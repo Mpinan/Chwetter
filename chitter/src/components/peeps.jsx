@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Table } from "reactstrap";
 import PostPeep from "./peepForm";
+import Delete from "./deletePeep";
 
 class Peeps extends Component {
   state = {
@@ -22,18 +23,28 @@ class Peeps extends Component {
   }
 
   render() {
+    const { peeps } = this.state;
+
     return (
       <Table striped responsive hover>
         <thead>
           <tr>
             <th>Peep</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {this.state.peeps.map(peep => {
+          {peeps.map(peep => {
             return (
               <tr key={peep.id}>
                 <td>{peep.body}</td>
+                <td>
+                  <Delete
+                    peepID={peep.id}
+                    peepUserId={peep.user.id}
+                    currentUser={sessionStorage.getItem("user_id")}
+                  ></Delete>
+                </td>
               </tr>
             );
           })}
