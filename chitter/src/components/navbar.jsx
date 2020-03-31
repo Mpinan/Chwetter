@@ -15,6 +15,28 @@ const NavBar = () => {
 
   const toggleNavbar = () => setCollapsed(!collapsed);
 
+  const logOut = () => {
+    sessionStorage.clear();
+  };
+
+  const handleButton = () => {
+    if (sessionStorage.getItem("user_id") === null) {
+      return (
+        <NavItem>
+          <NavLink href="/login">Log in</NavLink>
+        </NavItem>
+      );
+    } else {
+      return (
+        <NavItem>
+          <NavLink href="/logout" onClick={logOut}>
+            Log out
+          </NavLink>
+        </NavItem>
+      );
+    }
+  };
+
   return (
     <div>
       <Navbar color="faded" light>
@@ -24,11 +46,9 @@ const NavBar = () => {
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar>
+            {handleButton()}
             <NavItem>
-              <NavLink href="/login">Login</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/signup">SignUp</NavLink>
+              <NavLink href="/signup">Sign up</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
