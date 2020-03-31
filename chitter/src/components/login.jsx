@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, Badge } from "reactstrap";
 import { Redirect } from "react-router-dom";
 
 class Login extends Component {
@@ -77,6 +77,11 @@ class Login extends Component {
   render() {
     return (
       <Form style={{ margin: "50px 0" }} onSubmit={this.handleLogin.bind(this)}>
+        <div>
+          <h1>
+            <Badge color="secondary">Log in</Badge>
+          </h1>
+        </div>
         {this.renderRedirect()}
         <FormGroup>
           <Label for="username">Username</Label>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, Badge } from "reactstrap";
 import { Redirect } from "react-router-dom";
 
 // const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -78,6 +78,11 @@ class SignUp extends Component {
     return (
       <Form style={{ margin: "50px 0" }} onSubmit={this.handleLogin.bind(this)}>
         {this.renderRedirect()}
+        <div>
+          <h1>
+            <Badge color="secondary">Sign up</Badge>
+          </h1>
+        </div>
         <FormGroup>
           <Label for="username">Username</Label>
           <Input

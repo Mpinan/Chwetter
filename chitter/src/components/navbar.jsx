@@ -24,6 +24,7 @@ const NavBar = () => {
       return (
         <NavItem>
           <NavLink href="/login">Log in</NavLink>
+          <NavLink href="/signup">Sign up</NavLink>
         </NavItem>
       );
     } else {
@@ -45,12 +46,7 @@ const NavBar = () => {
         </NavbarBrand>
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />
         <Collapse isOpen={!collapsed} navbar>
-          <Nav navbar>
-            {handleButton()}
-            <NavItem>
-              <NavLink href="/signup">Sign up</NavLink>
-            </NavItem>
-          </Nav>
+          <Nav navbar>{handleButton()}</Nav>
         </Collapse>
       </Navbar>
     </div>
