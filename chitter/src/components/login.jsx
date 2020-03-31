@@ -49,6 +49,7 @@ class Login extends Component {
   }
 
   handleLogin = e => {
+    console.log("hello");
     e.preventDefault();
     const errors = this.validate();
     this.setState({ errors });

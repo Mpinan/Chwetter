@@ -1,21 +1,25 @@
 import React, { Component } from "react";
 import { Button, FormGroup, Label, Input } from "reactstrap";
+import { Redirect } from "react-router-dom";
 
 class PostPeep extends Component {
-  state = { chweet: "" };
+  state = {
+    userId: sessionStorage.getItem("user_id"),
+    chweet: "",
+    redirect: false
+  };
 
-  addPeep(e) {
-    e.preventDefault();
+  addPeep() {
     fetch("https://chitter-backend-api-v2.herokuapp.com/peeps", {
       method: "POST",
       headers: {
-        Authorization: sessionStorage.getItem("session_key"),
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: "Token token=" + sessionStorage.getItem("session_key")
       },
       body: JSON.stringify({
-        session: {
-          user_id: this.state.user,
-          body: this.state.password
+        peep: {
+          user_id: this.state.userId,
+          body: this.state.chweet
         }
       })
     })
@@ -29,19 +33,31 @@ class PostPeep extends Component {
       .catch(err => console.log(err));
   }
 
+  setRedirect() {
+    this.setState({ redirect: true });
+  }
+
+  renderRedirect() {
+    if (this.state.redirect) {
+      return <Redirect to="/peeps" />;
+    }
+  }
+
   handlePeep(e) {
-    console.log(this.state.chweet, "----");
+    console.log("----");
     e.preventDefault();
     this.addPeep();
   }
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
+    console.log(this.state);
   };
 
   render() {
     return (
-      <FormGroup onChweet={this.handlePeep.bind(this)}>
+      <FormGroup>
+        {this.renderRedirect()}
         <Label for="exampleText">Text Area</Label>
         <Input
           onChange={this.onChange}
@@ -49,7 +65,7 @@ class PostPeep extends Component {
           name="chweet"
           id="chweet"
         />
-        <Button>Chweet</Button>
+        <Button onClick={this.handlePeep.bind(this)}>Submit</Button>
       </FormGroup>
     );
   }
