@@ -16,6 +16,8 @@ class Peeps extends Component {
     this.getPeeps();
   }
 
+  addPeep() {}
+
   getPeeps() {
     fetch("https://chitter-backend-api-v2.herokuapp.com/peeps")
       .then(response => {
