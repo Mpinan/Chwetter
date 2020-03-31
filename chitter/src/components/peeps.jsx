@@ -22,6 +22,18 @@ class Peeps extends Component {
       .catch(err => console.log(err));
   }
 
+  handleButton(peep) {
+    if (peep.user.id == sessionStorage.getItem("user_id")) {
+      return (
+        <Delete
+          id={peep.user.id}
+          peepID={peep.id}
+          peepUserId={peep.user.id}
+          currentUser={sessionStorage.getItem("user_id")}
+        ></Delete>
+      );
+    }
+  }
   render() {
     const { peeps } = this.state;
 
@@ -38,13 +50,7 @@ class Peeps extends Component {
             return (
               <tr key={peep.id}>
                 <td>{peep.body}</td>
-                <td>
-                  <Delete
-                    peepID={peep.id}
-                    peepUserId={peep.user.id}
-                    currentUser={sessionStorage.getItem("user_id")}
-                  ></Delete>
-                </td>
+                <td>{this.handleButton(peep)}</td>
               </tr>
             );
           })}

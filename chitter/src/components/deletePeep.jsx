@@ -17,16 +17,16 @@ const Delete = props => {
     //   .then(this.setRedirect());
   };
 
-  //   console.log(props.currentUser, "Hello");
   const handleDelete = () => {
-    if (props.currentUser === props.peepUserId) {
-      console.log("HEllo");
-    }
     deletePeep(props.peepID);
-    // }
   };
+
   return (
-    <Button className="btn btn-danger btn-sm" onClick={handleDelete}>
+    <Button
+      id={props.currenUser}
+      className="btn btn-danger btn-sm"
+      onClick={handleDelete}
+    >
       Delete
     </Button>
   );
