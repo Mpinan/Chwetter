@@ -4,7 +4,6 @@ import { Redirect } from "react-router-dom";
 
 class Login extends Component {
   state = {
-    uid: 0,
     username: "",
     password: "",
     errors: {},
@@ -39,7 +38,9 @@ class Login extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        console.log("Success:", data);
+        sessionStorage.setItem("user_id", data.user_id);
+        sessionStorage.setItem("session_key", data.session_key);
+        console.log(sessionStorage.getItem("session_key"));
       })
       .catch(error => {
         console.error("Errorcito:", error);

@@ -1,11 +1,6 @@
 import React, { Component } from "react";
-import {
-  Table,
-  Button,
-  UncontrolledCollapse,
-  CardBody,
-  Card
-} from "reactstrap";
+import { Table } from "reactstrap";
+import PostPeep from "./peepForm";
 
 class Peeps extends Component {
   state = {
@@ -15,8 +10,6 @@ class Peeps extends Component {
   componentDidMount() {
     this.getPeeps();
   }
-
-  addPeep() {}
 
   getPeeps() {
     fetch("https://chitter-backend-api-v2.herokuapp.com/peeps")
@@ -45,6 +38,7 @@ class Peeps extends Component {
             );
           })}
         </tbody>
+        <PostPeep />
       </Table>
     );
   }
