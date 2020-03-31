@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Table } from "reactstrap";
 import PostPeep from "./peepForm";
 import Delete from "./deletePeep";
+import Like from "./like";
 
 class Peeps extends Component {
   state = {
@@ -34,6 +35,10 @@ class Peeps extends Component {
       );
     }
   }
+
+  handleLike(peep) {
+    return <Like />;
+  }
   render() {
     const { peeps } = this.state;
 
@@ -51,6 +56,7 @@ class Peeps extends Component {
               <tr key={peep.id}>
                 <td>{peep.body}</td>
                 <td>{this.handleButton(peep)}</td>
+                <td>{this.handleLike(peep)}</td>
               </tr>
             );
           })}
