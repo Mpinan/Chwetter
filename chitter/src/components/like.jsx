@@ -48,34 +48,22 @@ const Like = props => {
       });
   };
 
-  const handleIcon = () => {
-    const likes = [...props.likes];
-    // console.log(likes);
-    likes.map(like => {
-      if (props.currentUser === like.user) {
-        return (
-          <div>
-            <FontAwesomeIcon
-              icon={faTimesCircle}
-              onClick={handleLike}
-              style={{ cursor: "pointer" }}
-            />
-          </div>
-        );
-      }
-      return (
-        <div>
-          <FontAwesomeIcon
-            icon={faCheckCircle}
-            onClick={handleUnLike}
-            style={{ cursor: "pointer" }}
-          />
-        </div>
-      );
-    });
-  };
-
-  return <div>{handleIcon()}</div>;
+  return (
+    <div>
+      <FontAwesomeIcon
+        icon={faCheckCircle}
+        onClick={handleLike}
+        style={{ cursor: "pointer" }}
+      />
+      <h5>{props.likes.length}</h5>
+      <br />
+      <FontAwesomeIcon
+        icon={faTimesCircle}
+        onClick={handleUnLike}
+        style={{ cursor: "pointer" }}
+      />
+    </div>
+  );
 };
 
 export default Like;

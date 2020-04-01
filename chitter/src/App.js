@@ -3,9 +3,8 @@ import { Container } from "reactstrap";
 import NavBar from "./components/navbar";
 import Login from "./components/login";
 import SignUp from "./components/signup";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
 import Peeps from "./components/peeps";
-import Profile from "./components/profile";
 
 class App extends Component {
   render() {
@@ -13,11 +12,12 @@ class App extends Component {
       <Container className="App">
         <NavBar />
         <BrowserRouter>
-          <Route exact path="/peeps" component={Peeps} />
-          <Route exact path="/signup" component={SignUp} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/profile" component={Profile} />
-          {/* <Redirect from="/" exact to="/peeps" /> */}
+          <Switch>
+            <Route exact path="/peeps" component={Peeps} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/login" component={Login} />
+            <Redirect exact path="/" exact to="/peeps" />
+          </Switch>
         </BrowserRouter>
       </Container>
     );
