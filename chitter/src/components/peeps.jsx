@@ -23,15 +23,13 @@ class Peeps extends Component {
         return response.json();
       })
       .then(result => this.setState({ peeps: result }))
-      .then(result => console.log(this.state.peeps, "peeps"))
       .catch(err => console.log(err));
   }
 
-  handleButton(peep) {
+  handleDelete(peep) {
     if (peep.user.id == sessionStorage.getItem("user_id")) {
       return (
         <Delete
-          //   onChange={this.onChange(peep.user)}
           id={peep.user.id}
           peepID={peep.id}
           peepUserId={peep.user.id}
@@ -48,7 +46,7 @@ class Peeps extends Component {
         peepID={peep.id}
         peepUserId={peep.user.id}
         currentUser={sessionStorage.getItem("user_id")}
-        liked={peep.likes.user}
+        likes={peep.likes}
       />
     );
   }
@@ -68,7 +66,7 @@ class Peeps extends Component {
             return (
               <tr key={peep.id}>
                 <td>{peep.body}</td>
-                <td>{this.handleButton(peep)}</td>
+                <td>{this.handleDelete(peep)}</td>
                 <td>{this.handleLike(peep)}</td>
               </tr>
             );

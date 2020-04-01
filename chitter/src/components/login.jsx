@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Form, FormGroup, Label, Input, Badge } from "reactstrap";
 import { Redirect } from "react-router-dom";
+const helpers = require("./helpers");
 
 class Login extends Component {
   state = {
@@ -10,20 +11,7 @@ class Login extends Component {
     redirect: false
   };
 
-  validate = () => {
-    const errors = {};
-
-    if (this.state.username.trim() === "") {
-      errors.username = "Username is required";
-    }
-    if (this.state.password.trim() === "") {
-      errors.password = "Password is required";
-    }
-    return Object.keys(errors).length === 0 ? null : errors;
-  };
-
-  addUser(e) {
-    e.preventDefault();
+  addUser() {
     fetch("https://chitter-backend-api-v2.herokuapp.com/sessions", {
       method: "POST",
       headers: {
@@ -38,10 +26,7 @@ class Login extends Component {
     })
       .then(response => response.json())
       .then(data => {
-        // console.log(data.handle);
-        sessionStorage.setItem("username", data.handle);
-        sessionStorage.setItem("user_id", data.user_id);
-        sessionStorage.setItem("session_key", data.session_key);
+        helpers.saveSession(data);
       })
       .catch(error => {
         console.error("Errorcito:", error);
@@ -49,13 +34,11 @@ class Login extends Component {
       .then(this.setRedirect());
   }
 
-  handleLogin = e => {
-    console.log(sessionStorage.getItem("username"));
-    e.preventDefault();
-    const errors = this.validate();
+  handleLogin = () => {
+    const errors = helpers.validate(this.state);
     this.setState({ errors });
     if (errors) return;
-    this.addUser(e);
+    this.addUser();
   };
 
   // Is used to store what the user is typing

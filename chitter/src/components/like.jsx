@@ -21,8 +21,8 @@ const Like = props => {
       .catch(error => {
         console.error("Errorcito:", error);
       });
-    //   .then(this.setRedirect());
   };
+
   const handleLike = () => {
     addLike(props.peepID, props.currentUser);
   };
@@ -30,6 +30,7 @@ const Like = props => {
   const handleUnLike = () => {
     removeLike(props.peepID, props.currentUser);
   };
+
   const removeLike = (id, idUser) => {
     fetch(
       `https://chitter-backend-api-v2.herokuapp.com/peeps/${id}/likes/${idUser}`,
@@ -45,24 +46,36 @@ const Like = props => {
       .catch(error => {
         console.error("Errorcito:", error);
       });
-    //   .then(this.setRedirect());
   };
 
-  return (
-    <div>
-      <FontAwesomeIcon
-        icon={faCheckCircle}
-        onClick={handleLike}
-        style={{ cursor: "pointer" }}
-      />
-      <br />
-      <FontAwesomeIcon
-        icon={faTimesCircle}
-        onClick={handleUnLike}
-        style={{ cursor: "pointer" }}
-      />
-    </div>
-  );
+  const handleIcon = () => {
+    const likes = [...props.likes];
+    // console.log(likes);
+    likes.map(like => {
+      if (props.currentUser === like.user) {
+        return (
+          <div>
+            <FontAwesomeIcon
+              icon={faTimesCircle}
+              onClick={handleLike}
+              style={{ cursor: "pointer" }}
+            />
+          </div>
+        );
+      }
+      return (
+        <div>
+          <FontAwesomeIcon
+            icon={faCheckCircle}
+            onClick={handleUnLike}
+            style={{ cursor: "pointer" }}
+          />
+        </div>
+      );
+    });
+  };
+
+  return <div>{handleIcon()}</div>;
 };
 
 export default Like;

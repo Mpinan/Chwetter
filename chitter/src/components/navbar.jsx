@@ -19,7 +19,6 @@ const NavBar = () => {
   };
 
   const handleButton = () => {
-    console.log(sessionStorage.getItem("username"));
     if (sessionStorage.getItem("user_id") === null) {
       return (
         <NavItem>

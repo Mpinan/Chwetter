@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Button, Form, FormGroup, Label, Input, Badge } from "reactstrap";
 import { Redirect } from "react-router-dom";
+const helpers = require("./helpers");
 
 // const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -13,20 +14,7 @@ class SignUp extends Component {
     redirect: false
   };
 
-  validate = () => {
-    const errors = {};
-
-    if (this.state.username.trim() === "") {
-      errors.username = "Username is required";
-    }
-    if (this.state.password.trim() === "") {
-      errors.password = "Password is required";
-    }
-    return Object.keys(errors).length === 0 ? null : errors;
-  };
-
-  addUser(e) {
-    e.preventDefault();
+  addUser() {
     fetch("https://chitter-backend-api-v2.herokuapp.com/users", {
       method: "POST",
       headers: {
@@ -42,9 +30,7 @@ class SignUp extends Component {
       .then(response => response.json())
       .then(data => {
         console.log(data.handle);
-        sessionStorage.setItem("username", data.handle);
-        sessionStorage.setItem("user_id", data.user_id);
-        sessionStorage.setItem("session_key", data.session_key);
+        helpers.saveSession(data);
         console.log("Success:", data);
       })
       .catch(error => {
@@ -53,20 +39,16 @@ class SignUp extends Component {
       .then(this.setRedirect());
   }
 
-  handleLogin = e => {
-    e.preventDefault();
-    const errors = this.validate();
+  handleSingUp() {
+    const errors = helpers.validate(this.state);
     this.setState({ errors });
     if (errors) return;
-    this.addUser(e);
-  };
+    this.addUser();
+  }
 
-  // Is used to store what the user is typing
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
-  // Sends a post request to create a new user
 
   setRedirect() {
     this.setState({ redirect: true });
@@ -80,7 +62,10 @@ class SignUp extends Component {
 
   render() {
     return (
-      <Form style={{ margin: "50px 0" }} onSubmit={this.handleLogin.bind(this)}>
+      <Form
+        style={{ margin: "50px 0" }}
+        onSubmit={this.handleSingUp.bind(this)}
+      >
         {this.renderRedirect()}
         <div>
           <h1>
