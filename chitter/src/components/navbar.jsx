@@ -19,6 +19,7 @@ const NavBar = () => {
   };
 
   const handleButton = () => {
+    console.log(sessionStorage.getItem("username"));
     if (sessionStorage.getItem("user_id") === null) {
       return (
         <NavItem>
@@ -41,7 +42,7 @@ const NavBar = () => {
     <div>
       <Navbar color="faded" light>
         <NavbarBrand href="/peeps" className="mr-auto">
-          Chwitters
+          Chwitters, {sessionStorage.getItem("username")}
         </NavbarBrand>
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />
         <Collapse isOpen={!collapsed} navbar>

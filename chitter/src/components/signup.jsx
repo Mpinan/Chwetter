@@ -41,6 +41,10 @@ class SignUp extends Component {
     })
       .then(response => response.json())
       .then(data => {
+        console.log(data.handle);
+        sessionStorage.setItem("username", data.handle);
+        sessionStorage.setItem("user_id", data.user_id);
+        sessionStorage.setItem("session_key", data.session_key);
         console.log("Success:", data);
       })
       .catch(error => {

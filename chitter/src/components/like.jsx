@@ -1,6 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGrinBeam } from "@fortawesome/free-regular-svg-icons";
+import {
+  faTimesCircle,
+  faCheckCircle
+} from "@fortawesome/free-regular-svg-icons";
 
 const Like = props => {
   const addLike = (id, idUser) => {
@@ -23,14 +26,22 @@ const Like = props => {
   const handleLike = () => {
     addLike(props.peepID, props.currentUser);
   };
-  const removeLike = id => {
-    fetch(`https://chitter-backend-api-v2.herokuapp.com/peeps/${id}/likes/1`, {
-      method: "Delete",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Token token=" + sessionStorage.getItem("session_key")
+
+  const handleUnLike = () => {
+    removeLike(props.peepID, props.currentUser);
+  };
+
+  const removeLike = (id, idUser) => {
+    fetch(
+      `https://chitter-backend-api-v2.herokuapp.com/peeps/${id}/likes/${idUser}`,
+      {
+        method: "Delete",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Token token=" + sessionStorage.getItem("session_key")
+        }
       }
-    })
+    )
       .then(response => response.json())
       .catch(error => {
         console.error("Errorcito:", error);
@@ -39,11 +50,19 @@ const Like = props => {
   };
 
   return (
-    <FontAwesomeIcon
-      icon={faGrinBeam}
-      onClick={handleLike}
-      style={{ cursor: "pointer" }}
-    />
+    <div>
+      <FontAwesomeIcon
+        icon={faTimesCircle}
+        onClick={handleLike}
+        style={{ cursor: "pointer" }}
+      />
+      <br />
+      <FontAwesomeIcon
+        icon={faCheckCircle}
+        onClick={handleUnLike}
+        style={{ cursor: "pointer" }}
+      />
+    </div>
   );
 };
 

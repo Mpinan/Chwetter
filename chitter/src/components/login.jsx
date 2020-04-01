@@ -38,9 +38,10 @@ class Login extends Component {
     })
       .then(response => response.json())
       .then(data => {
+        // console.log(data.handle);
+        sessionStorage.setItem("username", data.handle);
         sessionStorage.setItem("user_id", data.user_id);
         sessionStorage.setItem("session_key", data.session_key);
-        console.log(sessionStorage.getItem("session_key"));
       })
       .catch(error => {
         console.error("Errorcito:", error);
@@ -49,6 +50,7 @@ class Login extends Component {
   }
 
   handleLogin = e => {
+    console.log(sessionStorage.getItem("username"));
     e.preventDefault();
     const errors = this.validate();
     this.setState({ errors });

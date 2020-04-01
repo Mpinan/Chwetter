@@ -48,6 +48,7 @@ class Peeps extends Component {
         peepID={peep.id}
         peepUserId={peep.user.id}
         currentUser={sessionStorage.getItem("user_id")}
+        liked={peep.likes.user}
       />
     );
   }
