@@ -30,7 +30,6 @@ const Like = props => {
   const handleUnLike = () => {
     removeLike(props.peepID, props.currentUser);
   };
-
   const removeLike = (id, idUser) => {
     fetch(
       `https://chitter-backend-api-v2.herokuapp.com/peeps/${id}/likes/${idUser}`,
@@ -52,13 +51,13 @@ const Like = props => {
   return (
     <div>
       <FontAwesomeIcon
-        icon={faTimesCircle}
+        icon={faCheckCircle}
         onClick={handleLike}
         style={{ cursor: "pointer" }}
       />
       <br />
       <FontAwesomeIcon
-        icon={faCheckCircle}
+        icon={faTimesCircle}
         onClick={handleUnLike}
         style={{ cursor: "pointer" }}
       />
