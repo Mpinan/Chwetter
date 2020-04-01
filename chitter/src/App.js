@@ -3,7 +3,7 @@ import { Container } from "reactstrap";
 import NavBar from "./components/navbar";
 import Login from "./components/login";
 import SignUp from "./components/signup";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import Peeps from "./components/peeps";
 import Profile from "./components/profile";
 

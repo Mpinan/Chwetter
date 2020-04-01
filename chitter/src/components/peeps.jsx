@@ -13,6 +13,10 @@ class Peeps extends Component {
     this.getPeeps();
   }
 
+  //   onChange = peeps => {
+  //     this.setState({ peeps });
+  //   };
+
   getPeeps() {
     fetch("https://chitter-backend-api-v2.herokuapp.com/peeps")
       .then(response => {
@@ -27,6 +31,7 @@ class Peeps extends Component {
     if (peep.user.id == sessionStorage.getItem("user_id")) {
       return (
         <Delete
+          //   onChange={this.onChange(peep.user)}
           id={peep.user.id}
           peepID={peep.id}
           peepUserId={peep.user.id}
@@ -37,7 +42,14 @@ class Peeps extends Component {
   }
 
   handleLike(peep) {
-    return <Like />;
+    return (
+      <Like
+        id={peep.user.id}
+        peepID={peep.id}
+        peepUserId={peep.user.id}
+        currentUser={sessionStorage.getItem("user_id")}
+      />
+    );
   }
   render() {
     const { peeps } = this.state;
