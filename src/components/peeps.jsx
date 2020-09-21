@@ -6,24 +6,20 @@ import Like from "./like";
 
 class Peeps extends Component {
   state = {
-    peeps: []
+    peeps: [],
   };
 
   componentDidMount() {
     this.getPeeps();
   }
 
-  //   onChange = peeps => {
-  //     this.setState({ peeps });
-  //   };
-
   getPeeps() {
     fetch("https://chitter-backend-api-v2.herokuapp.com/peeps")
-      .then(response => {
+      .then((response) => {
         return response.json();
       })
-      .then(result => this.setState({ peeps: result }))
-      .catch(err => console.log(err));
+      .then((result) => this.setState({ peeps: result }))
+      .catch((err) => console.log(err));
   }
 
   handleDelete(peep) {
@@ -62,7 +58,7 @@ class Peeps extends Component {
           </tr>
         </thead>
         <tbody>
-          {peeps.map(peep => {
+          {peeps.map((peep) => {
             return (
               <tr key={peep.id}>
                 <td>{peep.body}</td>
